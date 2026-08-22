@@ -539,3 +539,295 @@ function resetProblem() {
 
     updateGuide();
 }
+/* =========================================
+   INTERACTIVE TRIANGLE VISUALIZATION
+========================================= */
+
+let triangleData = {
+    a: null,
+    b: null,
+    c: null,
+    A: null,
+    B: null,
+    C: null
+};
+
+
+/* =========================================
+   UPDATE TRIANGLE DATA
+========================================= */
+
+function setTriangleData(a, b, c, A, B, C) {
+
+    triangleData = {
+        a: a,
+        b: b,
+        c: c,
+        A: A,
+        B: B,
+        C: C
+    };
+
+    updateTriangleVisualization();
+}
+
+
+/* =========================================
+   DRAW TRIANGLE
+========================================= */
+
+function updateTriangleVisualization() {
+
+    const triangle = document.getElementById("triangleShape");
+
+    if (!triangle) return;
+
+    let a = triangleData.a;
+    let b = triangleData.b;
+    let c = triangleData.c;
+
+    let A = triangleData.A;
+    let B = triangleData.B;
+    let C = triangleData.C;
+
+
+    /* -----------------------------------------
+       If we have angles but no sides,
+       create proportional sides.
+    ----------------------------------------- */
+
+    if (
+        A !== null &&
+        B !== null &&
+        C !== null &&
+        (a === null || b === null || c === null)
+    ) {
+
+        const scale = 200;
+
+        a = Math.sin(A * Math.PI / 180) * scale;
+        b = Math.sin(B * Math.PI / 180) * scale;
+        c = Math.sin(C * Math.PI / 180) * scale;
+    }
+
+
+    /* -----------------------------------------
+       Need at least some information
+    ----------------------------------------- */
+
+    if (
+        a === null &&
+        b === null &&
+        c === null &&
+        A === null &&
+        B === null &&
+        C === null
+    ) {
+        return;
+    }
+
+
+    /* -----------------------------------------
+       Use available sides
+    ----------------------------------------- */
+
+    if (a === null) a = 1;
+    if (b === null) b = 1;
+    if (c === null) c = 1;
+
+
+    /*
+       Coordinates:
+
+       B = left
+       C = right
+       A = top
+    */
+
+    const Bx = 70;
+    const By = 285;
+
+    const Cx = 430;
+    const Cy = 285;
+
+
+    /*
+       Calculate A position using
+       Law of Cosines.
+    */
+
+    let x =
+        (b * b + c * c - a * a) /
+        (2 * c);
+
+    let ySquared =
+        b * b - x * x;
+
+
+    /*
+       Prevent negative values caused
+       by rounding.
+    */
+
+    if (ySquared < 0) {
+        ySquared = 0;
+    }
+
+    let y = Math.sqrt(ySquared);
+
+
+    /*
+       Scale triangle to fit SVG.
+    */
+
+    const maxSide = Math.max(a, b, c);
+
+    const scale =
+        260 / Math.max(maxSide, 1);
+
+
+    x = x * scale;
+    y = y * scale;
+
+
+    /*
+       Keep the triangle centered.
+    */
+
+    const Ax = Bx + x;
+    const Ay = By - y;
+
+
+    /*
+       Update triangle shape.
+    */
+
+    triangle.setAttribute(
+        "points",
+        `${Ax},${Ay} ${Bx},${By} ${Cx},${Cy}`
+    );
+
+
+    /* =========================================
+       UPDATE VERTEX LABELS
+    ========================================= */
+
+    const labelA = document.getElementById("labelA");
+    const labelB = document.getElementById("labelB");
+    const labelC = document.getElementById("labelC");
+
+    if (labelA) {
+        labelA.setAttribute("x", Ax);
+        labelA.setAttribute("y", Ay - 15);
+    }
+
+    if (labelB) {
+        labelB.setAttribute("x", Bx - 25);
+        labelB.setAttribute("y", By + 20);
+    }
+
+    if (labelC) {
+        labelC.setAttribute("x", Cx + 10);
+        labelC.setAttribute("y", Cy + 20);
+    }
+
+
+    /* =========================================
+       SIDE LABEL POSITIONS
+    ========================================= */
+
+    const labelSideA =
+        document.getElementById("labelSideA");
+
+    const labelSideB =
+        document.getElementById("labelSideB");
+
+    const labelSideC =
+        document.getElementById("labelSideC");
+
+
+    /*
+       Side a = BC
+    */
+
+    if (labelSideA) {
+
+        labelSideA.setAttribute(
+            "x",
+            (Bx + Cx) / 2
+        );
+
+        labelSideA.setAttribute(
+            "y",
+            By + 30
+        );
+
+        labelSideA.textContent =
+            a !== null
+                ? `a = ${roundNumber(a)}`
+                : "a";
+    }
+
+
+    /*
+       Side b = AC
+    */
+
+    if (labelSideB) {
+
+        labelSideB.setAttribute(
+            "x",
+            (Ax + Cx) / 2 + 10
+        );
+
+        labelSideB.setAttribute(
+            "y",
+            (Ay + Cy) / 2
+        );
+
+        labelSideB.textContent =
+            b !== null
+                ? `b = ${roundNumber(b)}`
+                : "b";
+    }
+
+
+    /*
+       Side c = AB
+    */
+
+    if (labelSideC) {
+
+        labelSideC.setAttribute(
+            "x",
+            (Ax + Bx) / 2 - 25
+        );
+
+        labelSideC.setAttribute(
+            "y",
+            (Ay + By) / 2
+        );
+
+        labelSideC.textContent =
+            c !== null
+                ? `c = ${roundNumber(c)}`
+                : "c";
+    }
+
+
+    /* =========================================
+       ANIMATION
+    ========================================= */
+
+    const svg =
+        document.getElementById("triangleSVG");
+
+    if (svg) {
+
+        svg.classList.remove("triangle-updated");
+
+        void svg.offsetWidth;
+
+        svg.classList.add("triangle-updated");
+    }
+}
