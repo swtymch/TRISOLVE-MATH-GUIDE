@@ -219,6 +219,14 @@ function solveSSS(a, b, c) {
     const A = toDegrees(Math.acos(Math.max(-1, Math.min(1, cosA))));
     const B = toDegrees(Math.acos(Math.max(-1, Math.min(1, cosB))));
     const C = 180 - A - B;
+    setTriangleData(
+    a,
+    b,
+    c,
+    A,
+    B,
+    C
+);
 
     $("angleA").value = roundNumber(A);
     $("angleB").value = roundNumber(B);
@@ -282,6 +290,14 @@ function solveSAS(a, b, C) {
         2 * a * b * Math.cos(toRadians(C))
     );
 
+    setTriangleData(
+    a,
+    b,
+    c,
+    A,
+    B,
+    C
+);
     const cosA = (b * b + c * c - a * a) / (2 * b * c);
     const A = toDegrees(Math.acos(Math.max(-1, Math.min(1, cosA))));
     const B = 180 - A - C;
@@ -343,6 +359,14 @@ function solveASA(A, B, c) {
     }
 
     const C = 180 - A - B;
+    setTriangleData(
+    a,
+    b,
+    c,
+    A,
+    B,
+    C
+);
 
     if (A <= 0 || B <= 0 || C <= 0 || c <= 0) {
         showError("The given values cannot form a valid triangle.");
@@ -468,6 +492,14 @@ function solveAAS(A, B, a) {
     );
 
     updateGuide();
+    setTriangleData(
+    a,
+    b,
+    c,
+    A,
+    B,
+    C
+);
 }
 
 function showResult(message) {
