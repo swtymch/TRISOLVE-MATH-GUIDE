@@ -104,16 +104,20 @@
         <div class="card triangle-card">
             <h3>3. Triangle Visualization</h3>
 
-            <div class="triangle-container">
-                <div class="triangle">
-                    <span class="triangle-label vertex-a">A</span>
-                    <span class="triangle-label vertex-b">B</span>
-                    <span class="triangle-label vertex-c">C</span>
+            <div class="triangle-container" id="triangleVisualization">
+    <svg id="triangleSVG" viewBox="0 0 500 350">
+        <polygon id="triangleShape"
+                 points="80,280 420,280 250,70">
+        </polygon>
 
-                    <span class="side-label side-ab">c</span>
-                    <span class="side-label side-ac">b</span>
-                    <span class="side-label side-bc">a</span>
-                </div>
+        <text id="labelA" x="250" y="50">A</text>
+        <text id="labelB" x="55" y="300">B</text>
+        <text id="labelC" x="430" y="300">C</text>
+
+        <text id="labelSideA" x="340" y="310">a</text>
+        <text id="labelSideB" x="150" y="170">b</text>
+        <text id="labelSideC" x="330" y="170">c</text>
+    </svg>
             </div>
         </div>
 
