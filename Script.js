@@ -176,6 +176,23 @@ function solveTriangleSum(A, B, C) {
     updateGuide();
 }
 
+let finalA = A;
+let finalB = B;
+let finalC = C;
+
+if (missingName === "A") finalA = missingAngle;
+if (missingName === "B") finalB = missingAngle;
+if (missingName === "C") finalC = missingAngle;
+
+setTriangleData(
+    null,
+    null,
+    null,
+    finalA,
+    finalB,
+    finalC
+);
+
 function solveSSS(a, b, c) {
     if ([a, b, c].some(function (value) {
         return value === null;
