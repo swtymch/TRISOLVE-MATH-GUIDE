@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRISOLVE - Interactive Triangle Guide</title>
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">
+        <div class="logo-symbol">△</div>
+        <div>
+            <h1>TRISOLVE</h1>
+            <p>Interactive Triangle Guide</p>
+        </div>
+    </div>
+    <button id="reset" class="reset-button" type="button">Reset</button>
+</header>
+
+<main class="container">
+    <section class="workspace">
+
+        <div class="welcome-card">
+            <span class="tag">MATH SHOWCASE</span>
+            <h2>Triangle Problem Solver</h2>
+            <p>Explore different sides, angles, and triangle relationships with guided step-by-step solutions.</p>
+        </div>
+
+        <div class="card">
+            <h3>1. Choose a Method</h3>
+            <p class="small-text">Select the method that matches the information given in your problem.</p>
+
+            <div class="method-grid">
+                <button id="triangleSum" class="method" type="button">
+                    <strong>Triangle Sum</strong>
+                    <span>Angles = 180°</span>
+                </button>
+
+                <button id="sss" class="method" type="button">
+                    <strong>SSS</strong>
+                    <span>Side - Side - Side</span>
+                </button>
+
+                <button id="sas" class="method" type="button">
+                    <strong>SAS</strong>
+                    <span>Side - Angle - Side</span>
+                </button>
+
+                <button id="asa" class="method" type="button">
+                    <strong>ASA</strong>
+                    <span>Angle - Side - Angle</span>
+                </button>
+
+                <button id="aas" class="method" type="button">
+                    <strong>AAS</strong>
+                    <span>Angle - Angle - Side</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>2. Enter the Given Values</h3>
+            <p class="small-text">Leave the unknown value blank.</p>
+
+            <div class="input-grid">
+                <div class="input-box">
+                    <label for="sideA">Side a</label>
+                    <input id="sideA" type="number" step="any" placeholder="e.g. 8">
+                </div>
+
+                <div class="input-box">
+                    <label for="sideB">Side b</label>
+                    <input id="sideB" type="number" step="any" placeholder="e.g. 10">
+                </div>
+
+                <div class="input-box">
+                    <label for="sideC">Side c</label>
+                    <input id="sideC" type="number" step="any" placeholder="e.g. 12">
+                </div>
+
+                <div class="input-box">
+                    <label for="angleA">Angle A</label>
+                    <input id="angleA" type="number" step="any" placeholder="e.g. 30">
+                </div>
+
+                <div class="input-box">
+                    <label for="angleB">Angle B</label>
+                    <input id="angleB" type="number" step="any" placeholder="e.g. 60">
+                </div>
+
+                <div class="input-box">
+                    <label for="angleC">Angle C</label>
+                    <input id="angleC" type="number" step="any" placeholder="e.g. 90">
+                </div>
+            </div>
+
+            <button id="solveProblem" class="solve-button" type="button">
+                Solve Problem
+            </button>
+        </div>
+
+        <div class="card triangle-card">
+            <h3>3. Triangle Visualization</h3>
+
+            <div class="triangle-container" id="triangleVisualization">
+    <svg id="triangleSVG" viewBox="0 0 500 350">
+        <polygon id="triangleShape"
+                 points="80,280 420,280 250,70">
+        </polygon>
+
+        <text id="labelA" x="250" y="50">A</text>
+        <text id="labelB" x="55" y="300">B</text>
+        <text id="labelC" x="430" y="300">C</text>
+
+        <text id="labelSideA" x="340" y="310">a</text>
+        <text id="labelSideB" x="150" y="170">b</text>
+        <text id="labelSideC" x="330" y="170">c</text>
+
+        <text id="labelAngleA" x="250" y="105"></text>
+        <text id="labelAngleB" x="100" y="255"></text>
+        <text id="labelAngleC" x="400" y="255"></text>
+    </svg>
+            </div>
+        </div>
+
+        <div class="card result-card">
+            <h3>4. Result</h3>
+            <div id="result">
+                Enter values and press <strong>"Solve Problem"</strong>.
+            </div>
+        </div>
+
+    </section>
+
+    <aside class="guide-panel">
+        <div class="guide-header">
+            <div>
+                <span class="tag">GUIDED MODE</span>
+                <h2>Step-by-Step</h2>
+            </div>
+
+            <span id="stepNumber">0 / 0</span>
+        </div>
+
+        <div class="progress-container">
+            <div id="progressBar"></div>
+        </div>
+
+        <div id="stepContent" class="step-content">
+            <div class="guide-icon">?</div>
+            <h3>Ready to Learn?</h3>
+            <p>Choose a method, enter your values, and press Solve Problem.</p>
+        </div>
+
+        <div class="guide-buttons">
+            <button id="previousStep" type="button" disabled>← Previous</button>
+            <button id="nextStep" type="button" disabled>Next →</button>
+        </div>
+
+        <div class="tip-box">
+            <strong>💡 Tip</strong>
+            <p id="tip">Choose the method that matches the information given in your triangle.</p>
+        </div>
+
+        <div class="fact-box" id="factBox">
+            <div class="fact-icon">📘</div>
+            <div>
+                <strong>Quick Math Fact</strong>
+                <p id="factText">Every triangle has three interior angles whose sum is 180°.</p>
+            </div>
+        </div>
+    </aside>
+</main>
+
+<footer>
+    TRISOLVE • Interactive Mathematics Guide
+</footer>
+
+<script src="Script.js"></script>
+</body>
+</html>
